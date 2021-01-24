@@ -1,0 +1,1459 @@
+{
+	"info": {
+		"_postman_id": "44178c95-43e0-4606-8e46-7173462074e0",
+		"name": "金融科技事业部",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "数据库查询接口",
+			"item": [
+				{
+					"name": "查询数据库统一接口",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"type\": \"COMMON\",\r\n    \"sql\":\"select * from com_dictionary where id =1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.21.71:30100/db/query",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"21",
+								"71"
+							],
+							"port": "30100",
+							"path": [
+								"db",
+								"query"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "公共服务接口",
+			"item": [
+				{
+					"name": "加解密服务",
+					"item": [
+						{
+							"name": "加密接口正常返回数据 断言",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"加密正常返回用例\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.code).to.eql(\"0\");\r",
+											"    pm.expect(pm.response.text()).to.include(\"成功\");\r",
+											"});\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"source\":\"xk-dealer\",\r\n  \"tenantSerialNumber\": \"123456\",\r\n  \"data\":\"421127198911040531\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{xk-common}}/encryption/encode",
+									"host": [
+										"{{xk-common}}"
+									],
+									"path": [
+										"encryption",
+										"encode"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "加密接口source为空 断言",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Your test name\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.code).to.eql(\"001099\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"source\":\"\",\r\n  \"tenantSerialNumber\": \"123456\",\r\n  \"data\":\"421127198911040531\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{xk-common}}/encryption/encode",
+									"host": [
+										"{{xk-common}}"
+									],
+									"path": [
+										"encryption",
+										"encode"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "加密接口data为空 断言",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Your test name\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.code).to.eql(\"001099\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"source\":\"xk-dealer\",\r\n  \"tenantSerialNumber\": \"123456\",\r\n  \"data\":\"\"\r\n\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{xk-common}}/encryption/encode",
+									"host": [
+										"{{xk-common}}"
+									],
+									"path": [
+										"encryption",
+										"encode"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "解密接口正常返回数据 断言",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Your test name\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.code).to.eql(\"0\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"source\":\"xk-dealer\",\r\n  \"tenantSerialNumber\": \"123456\",\r\n  \"data\":\"P-QdTPJAvVRazMF/8t2knN7llB1nLbBDN/y7AUIS1lNzs=\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{xk-common}}/encryption/decode",
+									"host": [
+										"{{xk-common}}"
+									],
+									"path": [
+										"encryption",
+										"decode"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "解密接口source为空 断言",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Your test name\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.message).to.eql(\"source应该为2~32个字符\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"source\":\"\",\r\n  \"tenantSerialNumber\": \"123456\",\r\n  \"data\":\"P-QdTPJAvVRazMF/8t2knN7llB1nLbBDN/y7AUIS1lNzs=\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{xk-common}}/encryption/decode",
+									"host": [
+										"{{xk-common}}"
+									],
+									"path": [
+										"encryption",
+										"decode"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "解密接口data为空 断言",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Your test name\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.message).to.eql(\"密文长度应该为18位~64位\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"source\":\"xk-dealer\",\r\n  \"tenantSerialNumber\": \"123456\",\r\n  \"data\":\"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{xk-common}}/encryption/decode",
+									"host": [
+										"{{xk-common}}"
+									],
+									"path": [
+										"encryption",
+										"decode"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "字典查询服务",
+					"item": [
+						{
+							"name": "手动添加字典",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.globals.set(\"dictValue\", \"dictValue\");"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.environment.set(\"dictValue\", _.random(600, 700))\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"dictCode\": \"210001\",\r\n  \"dictName\": \"大专{{dictValue}}\",\r\n  \"dictValue\": {{dictValue}}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{xk-common}}/dictionary/add",
+									"host": [
+										"{{xk-common}}"
+									],
+									"path": [
+										"dictionary",
+										"add"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "字典新增断言",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Your test name\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"   // var dictV=parseInt(jsonData[0].dict_value)\r",
+											"    pm.expect(jsonData[0].dict_value).to.eql(pm.environment.get(\"dictValue\").toString());\r",
+											"});\r",
+											"var jsonData = pm.response.json();\r",
+											"console.log(jsonData[0].dict_value);\r",
+											"console.log(pm.environment.get(\"dictValue\").toString());\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"type\": \"COMMON\",\r\n    \"sql\":\"select * from com_dictionary where  dict_value = {{dictValue}} \"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://192.168.21.71:30100/db/query",
+									"protocol": "http",
+									"host": [
+										"192",
+										"168",
+										"21",
+										"71"
+									],
+									"port": "30100",
+									"path": [
+										"db",
+										"query"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "手动添加字典接口字段为空",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"dictCode\": \"\",\r\n  \"dictName\": \"\",\r\n  \"dictValue\": \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{xk-common}}/dictionary/add",
+									"host": [
+										"{{xk-common}}"
+									],
+									"path": [
+										"dictionary",
+										"add"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "根据字典Code和Value获取字典名称 断言",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Your test name\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.data.dictCode).to.eql(\"210000\")\r",
+											"\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{xk-common}}/dictionary/getDictNameByCodeAndValue?dictCode=210000&dictValue=4",
+									"host": [
+										"{{xk-common}}"
+									],
+									"path": [
+										"dictionary",
+										"getDictNameByCodeAndValue"
+									],
+									"query": [
+										{
+											"key": "dictCode",
+											"value": "210000"
+										},
+										{
+											"key": "dictValue",
+											"value": "4"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "根据字典Code和Value获取字典名称参数为空  断言",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Your test name\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.code).to.eql(\"001099\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{xk-common}}/dictionary/getDictNameByCodeAndValue?dictCode=210000&dictValue=",
+									"host": [
+										"{{xk-common}}"
+									],
+									"path": [
+										"dictionary",
+										"getDictNameByCodeAndValue"
+									],
+									"query": [
+										{
+											"key": "dictCode",
+											"value": "210000"
+										},
+										{
+											"key": "dictValue",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "根据字典Code和Value获取字典名称接口两个字段都为空  断言",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Your test name\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.code).to.eql(\"001099\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{xk-common}}/dictionary/getDictNameByCodeAndValue?dictCode=&dictValue=",
+									"host": [
+										"{{xk-common}}"
+									],
+									"path": [
+										"dictionary",
+										"getDictNameByCodeAndValue"
+									],
+									"query": [
+										{
+											"key": "dictCode",
+											"value": ""
+										},
+										{
+											"key": "dictValue",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "根据字典Code获取一组字典接口参数正常",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Your test name\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.data[0].dictCode).to.eql(\"100000\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{xk-common}}/dictionary/getListByCode?dictCode=100000",
+									"host": [
+										"{{xk-common}}"
+									],
+									"path": [
+										"dictionary",
+										"getListByCode"
+									],
+									"query": [
+										{
+											"key": "dictCode",
+											"value": "100000"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "根据字典Code获取一组字典接口dictCode有多条数据",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"    var jsonData = pm.response.json();\r",
+											"    console.log(jsonData.data.length);\r",
+											"pm.environment.set(\"cod\", jsonData.data.length);\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{xk-common}}/dictionary/getListByCode?dictCode=210001",
+									"host": [
+										"{{xk-common}}"
+									],
+									"path": [
+										"dictionary",
+										"getListByCode"
+									],
+									"query": [
+										{
+											"key": "dictCode",
+											"value": "210001"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "dictCode查询多条数据断言",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Your test name\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.length).to.eql(pm.environment.get(\"cod\"));\r",
+											"});\r",
+											"console.log(pm.environment.get(\"cod\"))"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"type\": \"COMMON\",\r\n    \"sql\":\"select * from com_dictionary where group_code =210001\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://192.168.21.71:30100/db/query",
+									"protocol": "http",
+									"host": [
+										"192",
+										"168",
+										"21",
+										"71"
+									],
+									"port": "30100",
+									"path": [
+										"db",
+										"query"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "根据字典Code获取一组字典接口dictCode为空  断言",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Your test name\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.code).to.eql(\"001099\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{xk-common}}/dictionary/getListByCode?dictCode=",
+									"host": [
+										"{{xk-common}}"
+									],
+									"path": [
+										"dictionary",
+										"getListByCode"
+									],
+									"query": [
+										{
+											"key": "dictCode",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "文件上传下载服务",
+					"item": [
+						{
+							"name": "上传文件",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);\r",
+											"pm.environment.set(\"data\", jsonData.data);\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "file",
+											"type": "file",
+											"src": "jspz.jpg"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{xk-common}}/file/upload",
+									"host": [
+										"{{xk-common}}"
+									],
+									"path": [
+										"file",
+										"upload"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "上传查询数据断言",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"setTimeout(function() {},[5000]);\r",
+											"\r",
+											"pm.test(\"Your test name\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData[0].object_id).to.eql(pm.environment.get(\"data\"));\r",
+											"});\r",
+											"console.log(pm.environment.get(\"data\"));\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"type\": \"COMMON\",\r\n    \"sql\":\"select * from com_oss_file where object_id = '{{data}}'\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://192.168.21.71:30100/db/query",
+									"protocol": "http",
+									"host": [
+										"192",
+										"168",
+										"21",
+										"71"
+									],
+									"port": "30100",
+									"path": [
+										"db",
+										"query"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "图片下载",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Your test name\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.code).to.eql(\"0\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"expireTime\":\"1800\" ,\r\n  \"objectId\":\"21012215e2d5de4482e8472aa3ef0f1cd6d483e2\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{xk-common}}/file/download",
+									"host": [
+										"{{xk-common}}"
+									],
+									"path": [
+										"file",
+										"download"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "行政省市区查询服务",
+					"item": [
+						{
+							"name": "根据list查询结果 车商专用 断言",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Your test name\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.data[0].areaCode).to.eql(\"321200\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{xk-common}}/district/getByCodeList?codeList=321200",
+									"host": [
+										"{{xk-common}}"
+									],
+									"path": [
+										"district",
+										"getByCodeList"
+									],
+									"query": [
+										{
+											"key": "codeList",
+											"value": "321200"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "根据list查询结果 参数为空  断言",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Your test name\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.code).to.eql(\"001099\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{xk-common}}/district/getByCodeList?codeList=",
+									"host": [
+										"{{xk-common}}"
+									],
+									"path": [
+										"district",
+										"getByCodeList"
+									],
+									"query": [
+										{
+											"key": "codeList",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "多个list查询结果断言",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Your test name\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    var areaCode =jsonData.data[0].areaCode\r",
+											"    var areaCode1 =jsonData.data[1].areaCode\r",
+											"    pm.expect(areaCode).to.eql(\"321100\");\r",
+											"    pm.expect(areaCode1).to.eql(\"321200\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{xk-common}}/district/getByCodeList?codeList=321200&codeList=321100",
+									"host": [
+										"{{xk-common}}"
+									],
+									"path": [
+										"district",
+										"getByCodeList"
+									],
+									"query": [
+										{
+											"key": "codeList",
+											"value": "321200"
+										},
+										{
+											"key": "codeList",
+											"value": "321100"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "根据level登记查询",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"\r",
+											"    var jsonData = pm.response.json();\r",
+											"    var aa =jsonData.data.length;\r",
+											"  pm.environment.set(\"aa\", aa);\r",
+											"console.log(aa);\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{xk-common}}/district/getByLevel?level=1",
+									"host": [
+										"{{xk-common}}"
+									],
+									"path": [
+										"district",
+										"getByLevel"
+									],
+									"query": [
+										{
+											"key": "level",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "根据level等级查询断言",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"\r",
+											"    var jsonData = pm.response.json();\r",
+											"    console.log(jsonData.length);\r",
+											"pm.test(\"Your test name\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.length).to.eql(pm.environment.get(\"aa\"));\r",
+											"    console.log(pm.environment.get(\"aa\"))\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"type\": \"COMMON\",\r\n    \"sql\":\"select * from com_gov_district where level =1\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://192.168.21.71:30100/db/query",
+									"protocol": "http",
+									"host": [
+										"192",
+										"168",
+										"21",
+										"71"
+									],
+									"port": "30100",
+									"path": [
+										"db",
+										"query"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "根据level等级查询 参数level为空 断言",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Your test name\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.code).to.eql(\"001099\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{xk-common}}/district/getByLevel?level=",
+									"host": [
+										"{{xk-common}}"
+									],
+									"path": [
+										"district",
+										"getByLevel"
+									],
+									"query": [
+										{
+											"key": "level",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "根据父级code获取子级列表 parentCode =0",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"    var jsonData = pm.response.json();\r",
+											"    var jd =jsonData.data.length;\r",
+											"    pm.environment.set(\"jd\", jd);\r",
+											"    console.log(jd)\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{xk-common}}/district/getListByParentCode?parentCode=0",
+									"host": [
+										"{{xk-common}}"
+									],
+									"path": [
+										"district",
+										"getListByParentCode"
+									],
+									"query": [
+										{
+											"key": "parentCode",
+											"value": "0"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "parent_code =0 断言",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"\r",
+											"pm.test(\"Your test name\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.length).to.eql(pm.environment.get(\"jd\"));\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"type\": \"COMMON\",\r\n    \"sql\":\"select * from com_gov_district where parent_code =0\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://192.168.21.71:30100/db/query",
+									"protocol": "http",
+									"host": [
+										"192",
+										"168",
+										"21",
+										"71"
+									],
+									"port": "30100",
+									"path": [
+										"db",
+										"query"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "根据父级code获取子集列表parentCode=320000",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"    var jsonData = pm.response.json();\r",
+											"    var pd =jsonData.data.length;\r",
+											"    pm.environment.set(\"pd\", pd);\r",
+											"    console.log(pd)\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{xk-common}}/district/getListByParentCode?parentCode=320000",
+									"host": [
+										"{{xk-common}}"
+									],
+									"path": [
+										"district",
+										"getListByParentCode"
+									],
+									"query": [
+										{
+											"key": "parentCode",
+											"value": "320000"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "parent_code=320000断言",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"\r",
+											"pm.test(\"Your test name\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.length).to.eql(pm.environment.get(\"pd\"));\r",
+											"});\r",
+											"console.log(pm.environment.get(\"p1d\"))"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"type\": \"COMMON\",\r\n    \"sql\":\"select * from com_gov_district where parent_code =320000\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://192.168.21.71:30100/db/query",
+									"protocol": "http",
+									"host": [
+										"192",
+										"168",
+										"21",
+										"71"
+									],
+									"port": "30100",
+									"path": [
+										"db",
+										"query"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "GPS坐标地址查询",
+					"item": [
+						{
+							"name": "gps坐标地址查询 安卓断言",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Your test name\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.data.address).to.eql(\"上海市浦东新区潍坊新村街道宏嘉大厦越秀大厦(福山路)\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "User-Agent",
+										"value": "car-finance-crm-android",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"address\": \"string\",\r\n  \"dealerId\": 0,\r\n  \"latitude\": \"31.224656\",\r\n  \"longitude\": \"121.530832\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{xk-common}}/gps/location/query",
+									"host": [
+										"{{xk-common}}"
+									],
+									"path": [
+										"gps",
+										"location",
+										"query"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "gps坐标地址查询 ios断言",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "User-Agent",
+										"value": "car-finance-crm-ios",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"address\": \"string\",\r\n  \"dealerId\": 0,\r\n  \"latitude\": \"31.224656\",\r\n  \"longitude\": \"121.530832\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{xk-common}}/gps/location/query",
+									"host": [
+										"{{xk-common}}"
+									],
+									"path": [
+										"gps",
+										"location",
+										"query"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "gps坐标地址查询 参数判空",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Your test name\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.code).to.eql(\"001099\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "User-Agent",
+										"value": "ios",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"address\": \"string\",\r\n  \"dealerId\": 0,\r\n  \"latitude\": \"\",\r\n  \"longitude\": \"121.530832\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{xk-common}}/gps/location/query",
+									"host": [
+										"{{xk-common}}"
+									],
+									"path": [
+										"gps",
+										"location",
+										"query"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}
